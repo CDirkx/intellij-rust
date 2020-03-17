@@ -8,7 +8,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                rust-version: [ 1.28.0, 1.41.0, nightly-2019-12-19 ]
+                rust-version: [ 1.31.0, 1.41.0, nightly-2019-12-19 ]
                 base-ide: [ idea, clion ]
                 platform-version: [ 193, 201 ]
                 # Unfortunately, we have to exclude unnecessary tasks because `include` cannot add new tasks to matrix
