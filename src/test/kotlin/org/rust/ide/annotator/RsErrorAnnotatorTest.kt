@@ -2511,6 +2511,17 @@ class RsErrorAnnotatorTest : RsAnnotatorTestBase(RsErrorAnnotator::class) {
         enum E<const C: i32> {}
     """)
 
+    @MockRustcVersion("1.41.0")
+    fun `test slice patterns E0658 1`() = checkErrors("""
+        fn main() { if let [_, <error descr="slice patterns is experimental [E0658]">x @ ..</error>] = [1, 2, 3] {} }
+    """)
+
+    @MockRustcVersion("1.41.0-nightly")
+    fun `test slice patterns E0658 2`() = checkErrors("""
+        #![feature(slice_patterns)]
+        fn main() { if let [_, x @ ..] = [1, 2, 3] {} }
+    """)
+
     @MockRustcVersion("1.0.0-nightly")
     fun `test stable attr on invalid owner E0132`() = checkErrors("""
         #![feature(start)]
