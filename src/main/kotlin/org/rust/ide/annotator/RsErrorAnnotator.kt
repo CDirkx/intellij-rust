@@ -524,6 +524,9 @@ class RsErrorAnnotator : AnnotatorBase(), HighlightRangeExtension {
             !impl.isUnsafe && !trait.isUnsafe && impl.excl == null && attrRequiringUnsafeImpl != null ->
                 RsDiagnostic.TraitMissingUnsafeImplAttributeError(traitRef, attrRequiringUnsafeImpl).addToHolder(holder)
         }
+
+        val const = impl.const ?: return
+        CONST_TRAIT_IMPL.check(holder, const, "const trait impls")
     }
 
     // E0118: Can impl only `struct`s, `enum`s and `union`s (when not implementing a trait)
